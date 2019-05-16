@@ -2,6 +2,30 @@
 
 We are giving you an initial react application (bootstrapped with [Create React App](https://github.com/facebook/create-react-app)) with a datamodel and a first api endpoint `http://localhost:3001/api/deals`, connected to a mongodb.
 
+___
+
+## Available Scripts
+
+In the project directory, you can run:
+
+### `npm install`
+To install all the dependencies
+
+### `npm start`
+
+Runs the app in the development mode.<br>
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+The page will reload if you make edits.<br>
+You will also see any lint errors in the console.
+
+### `npm run server`
+
+Runs the server.<br>
+Open [http://localhost:3001](http://localhost:3001) to view it in the browser.
+
+___
+
 ## Requests
 
 1. Edit the endpoint `http://localhost:3001/api/deals`, to be able to get a list of deals with certain filter passed by query string. Example: http://localhost:3001/api/deals?title=test will return all the deals with title equal to 'test'
@@ -31,27 +55,3 @@ Do you still have time, here some other task?
 
 ## Submission
 Please share your finished work on a new branch on this repository or create a new fork.
-
-___
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm install`
-To install all the dependencies
-
-### `npm start`
-
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
-
-### `npm run server`
-
-Runs the server.<br>
-Open [http://localhost:3001](http://localhost:3001) to view it in the browser.
