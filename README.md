@@ -4,11 +4,11 @@ We are giving you an initial react application (bootstrapped with [Create React 
 
 ## Requests
 
-1. Edit the endpoint `http://localhost:3001/api/deals`, to be able to get a list of deals with certain filter passed by query string. Example: http://localhost:3001/api/deals?title=test will return all the deals with title 'test'
+1. Edit the endpoint `http://localhost:3001/api/deals`, to be able to get a list of deals with certain filter passed by query string. Example: http://localhost:3001/api/deals?title=test will return all the deals with title equal to 'test'
 
 2. Add a new endpoint `http://localhost:3001/api/deal/{id}` that will return a single deal by ID.
 
-2. Add a new endpoint `http://localhost:3001/api/deals/stats` that will return:
+3. Add a new endpoint `http://localhost:3001/api/deals/stats` that will return:
 ```json
 {
     deals_count: 200,       // number of deals
@@ -17,19 +17,20 @@ We are giving you an initial react application (bootstrapped with [Create React 
 }
 ```
 
-3. Show the list of deals order by create date, showing the most recent first.
+4. Show the list of deals order by create date, showing the most recent first.
 
-4. Create a filter to show all deals created from a certain date.
+5. Create a filter to show all deals created from a certain date.
 
-5. Show stats of deals on top of the page using the endpoint previously created `http://localhost:3001/api/deals/stats`.
+6. Show stats of deals on top of the page using the endpoint previously created `http://localhost:3001/api/deals/stats`.
 
-## Stretch
+## Stretch 
+Do you still have time, here some other task?
 1. Itegrate Redux on react application
 2. Insert a new deal
 3. Edit a deal
 
 ## Submission
-Please share your finished work on a new branch on this repository.
+Please share your finished work on a new branch on this repository or create a new fork.
 
 ___
 
