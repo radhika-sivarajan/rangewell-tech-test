@@ -30,7 +30,10 @@ app.get('/', (req,res) =>{
     res.send({
         message: 'Welcome',
         endpoints:[
-            '/api/deals'
+            '/api/deals',
+			'/api/deals?title={title}',
+			'/api/deal/{id}',
+			'/api/deals/stats'
         ]
     })
 })
