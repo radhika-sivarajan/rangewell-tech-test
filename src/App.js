@@ -9,14 +9,14 @@ const STATS_QUERY = 'stats/';
 
 class App extends Component {
   constructor(props) {
-      super(props);
-      this.state = {
-          deals: [],
-          stats: [],
-          date:"",
-      }
+    super(props);
+    this.state = {
+      deals: [],
+      stats: [],
+      date: "",
     }
-    
+  }
+
   componentDidMount() {
     fetch(API + DEALS_QUERY)
       .then(response => response.json())
@@ -28,67 +28,74 @@ class App extends Component {
       .then(response => response.json())
       .then(response => {
         this.setState({ stats: response });
-    });
+      });
   }
 
-
+  // Method to set new state of date when selected from drop-down menu
   handleDateChange = (event) => {
     this.setState({ date: event.target.value });
   }
 
-  // Method to render all deals sorted by date or specific deal by date
+  // Method to render all deals sorted by date or specific deals by date of creation
   renderDeals = () => {
     let dealRows;
-    if(this.state.date.length === 0) {
+    if (this.state.date.length === 0) {
       if (this.state.deals.length !== 0) {
-        let sortedByDateDeal = this.state.deals.sort((a,b) => { 
-          return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime() 
+        let sortedByDateDeal = this.state.deals.sort((a, b) => {
+          return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
         });
         dealRows = sortedByDateDeal.map((item, index) => {
           return (
             <tr key={index}>
-                <td>{item.title}</td>
-                <td>{item.amountRequired}</td>
-                <td>{item.createdAt}</td>
+              <td>{item.title}</td>
+              <td>{item.amountRequired}</td>
+              <td>{item.createdAt}</td>
             </tr>
           );
         });
       }
-    }else{
+    } else {
       if (this.state.deals.length !== 0) {
         dealRows = this.state.deals.map((item, index) => {
           let isDate = item.createdAt.search(this.state.date);
-          if(isDate !== -1){
+          if (isDate !== -1) {
             return (
               <tr key={index}>
-                  <td>{item.title}</td>
-                  <td>{item.amountRequired}</td>
-                  <td>{item.createdAt}</td>
+                <td>{item.title}</td>
+                <td>{item.amountRequired}</td>
+                <td>{item.createdAt}</td>
               </tr>
             );
-          } 
+          }
         });
       }
     }
     return dealRows;
   }
 
-  // Method to render stat component
+  // Method to render statistics of the deal
   renderStats = () => {
     if (this.state.stats.length !== 0) {
-      return(
+      return (
         <div>
-          <p><b>Deals count</b> : {this.state.stats.deals_count},<b> Total amounts</b> : £{this.state.stats.total_amounts},<b> Avg amount</b> : £{this.state.stats.avg_amount}</p>
+          <p>
+            <b>Deals count</b>: {this.state.stats.deals_count}
+            <span className="text-warning"> || </span>
+            <b>Total amount</b>: £{this.state.stats.total_amounts}
+            <span className="text-warning"> || </span>
+            <b>Average amount</b>: £{this.state.stats.avg_amount}
+          </p>
         </div>
       );
     }
   }
 
+  // Method for the dropdown menu
   renderForm = () => {
     let dates = [];
     const uniqueDateList = this.state.deals.map((date, i) => {
-      let slicedDate = new Date(date.createdAt).toISOString().slice(0,10);
-      if(dates.indexOf(slicedDate) === -1) {
+      let slicedDate = new Date(date.createdAt).toISOString().slice(0, 10);
+      if (dates.indexOf(slicedDate) === -1) {
         dates.push(slicedDate);
         return (
           <option value={slicedDate} key={i}>{slicedDate}</option>
@@ -97,7 +104,7 @@ class App extends Component {
       return 1;
     })
     if (this.state.deals.length !== 0) {
-      return(
+      return (
         <div className="form-group">
           <select className="form-control" name="date" onChange={this.handleDateChange}>
             <option value=''>All deals</option>
@@ -111,14 +118,16 @@ class App extends Component {
   render() {
     return (
       <div className="App container">
+        
         <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
+          <img src={logo} className="App-logo" alt="logo" />
         </header>
         <p></p>
+
         <div className="row text-center stat-info">
           <div className="col-12">
-          <h5><p className="text-danger">Stats</p></h5>
-          {this.renderStats()}
+            <h5><p className="text-danger">Statistics</p></h5>
+            {this.renderStats()}
           </div>
         </div>
 
@@ -127,7 +136,7 @@ class App extends Component {
             <h3 className="text-info"><p>Deals</p></h3>
           </div>
           <div className="col-5 offset-1">
-              {this.renderForm()}
+            {this.renderForm()}
           </div>
         </div>
 
@@ -135,21 +144,21 @@ class App extends Component {
           <div className="col-12">
             <main>
               <table className="table table-hover text-left">
-                  <thead className="table-info">
-                    <tr>
-                      <th scope="col">Title</th>
-                      <th scope="col">Amount Required</th>
-                      <th scope="col">Date</th>
-                    </tr>
-                  </thead>
-                  <tbody>     
-                    {this.renderDeals()}
-                  </tbody>
+                <thead className="table-info">
+                  <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Amount required</th>
+                    <th scope="col">Created date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {this.renderDeals()}
+                </tbody>
               </table>
             </main>
           </div>
         </div>
-        
+
       </div>
     );
   }
