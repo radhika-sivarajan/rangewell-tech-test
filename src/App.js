@@ -30,12 +30,12 @@ class App extends Component {
     });
   }
 
-  // Method to render deal component
+  // Method to render deal component sorted by date
   renderDeals = () => {
     let dealRows;
     if (this.state.deals.length !== 0) {
       let sortedByDateDeal = this.state.deals.sort(function(a,b){ 
-        return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime() 
+        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime() 
       });
       dealRows = sortedByDateDeal.map((item, index) => {
         return (
@@ -57,7 +57,7 @@ class App extends Component {
     if (this.state.stats.length !== 0) {
       return(
         <div>
-          <p><b>Deals count : </b>{this.state.stats.deals_count},<b> Total amounts : </b>{this.state.stats.total_amounts},<b> Avg amount : </b>{this.state.stats.avg_amount}</p>
+          <p><b>Deals count</b> : {this.state.stats.deals_count},<b> Total amounts</b> : £{this.state.stats.total_amounts},<b> Avg amount</b> : £{this.state.stats.avg_amount}</p>
         </div>
       );
     }

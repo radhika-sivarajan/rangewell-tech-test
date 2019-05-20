@@ -10,10 +10,18 @@ routerApi.get("/deals", async (req, res) => {
     let title = req.query.title; 
     if( title == undefined){
         db.dealsCollection.find().exec(function(err, result) {
+            if (err) {
+                res.json(err);
+                return;
+            }
             res.send(result);
         });
     }else{
         db.dealsCollection.find({ 'title' : title }).exec(function(err, result) {
+            if (err) {
+                res.json(err);
+                return;
+            }
             res.send(result);
         });
     }
@@ -22,17 +30,36 @@ routerApi.get("/deals", async (req, res) => {
 // Return a specific stat data
 routerApi.get("/deals/stats", async (req, res) => {
     let statistics = {
-        deals_count: 200,       // number of deals
-        total_amounts: 200000,  // total amountRequired of deals
-        avg_amount: 3000        // average of deals  amountRequired
+        deals_count: 0,       // number of deals
+        total_amounts: 0,  // total amountRequired of deals
+        avg_amount: 0        // average of deals  amountRequired
     };
-    res.send(statistics);
+    db.dealsCollection.find().exec(function(err, result) {
+        if (err) {
+            res.json(err);
+            return;
+        }
+        let total=0;
+        let avg=0;
+        for (var i = 0; i < result.length; i++) {
+            total += result[i].amountRequired;
+        }
+        avg = total/result.length;
+        statistics.deals_count = result.length;
+        statistics.total_amounts = total;
+        statistics.avg_amount = avg;
+        res.send(statistics);
+    });
 });
 
 // Get deal by it's id
 routerApi.get("/deals/:id", async (req, res) => {
     let id = req.params.id; 
     db.dealsCollection.findById(id).exec(function(err, result) {
+        if (err) {
+            res.json(err);
+            return;
+        }
         res.send(result);
     });
 });
