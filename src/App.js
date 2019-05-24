@@ -41,10 +41,7 @@ class App extends Component {
     let dealRows;
     if (this.state.date.length === 0) {
       if (this.state.deals.length !== 0) {
-        let sortedByDateDeal = this.state.deals.sort((a, b) => {
-          return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-        });
-        dealRows = sortedByDateDeal.map((item, index) => {
+        dealRows = this.state.deals.map((item, index) => {
           return (
             <tr key={index}>
               <td>{item.title}</td>

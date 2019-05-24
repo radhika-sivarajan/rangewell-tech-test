@@ -9,7 +9,7 @@ import * as db from "./data/models";
 routerApi.get("/deals", async (req, res) => {
     let title = req.query.title; 
     if( title == undefined){
-        db.dealsCollection.find().exec(function(err, result) {
+        db.dealsCollection.find().sort({createdAt:'desc'}).exec(function(err, result) {
             if (err) {
                 res.json(err);
                 return;
