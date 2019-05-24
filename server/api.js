@@ -27,28 +27,20 @@ routerApi.get("/deals", async (req, res) => {
     }
 });
 
-// Return a specific stat data
+// Return a  statics of deals
 routerApi.get("/deals/stats", async (req, res) => {
-    let statistics = {
-        deals_count: 0,       // number of deals
-        total_amounts: 0,  // total amountRequired of deals
-        avg_amount: 0        // average of deals  amountRequired
-    };
-    db.dealsCollection.find().exec(function(err, result) {
-        if (err) {
-            res.json(err);
-            return;
+    db.dealsCollection.aggregate([
+        {
+            $group: {
+                _id:'dealsId',
+                deals_count: {$sum: 1},
+                total_amounts: {$sum: "$amountRequired"}, 
+                avg_amount: {$avg: "$amountRequired"}
+            }
         }
-        let total=0;
-        let avg=0;
-        for (var i = 0; i < result.length; i++) {
-            total += result[i].amountRequired;
-        }
-        avg = total/result.length;
-        statistics.deals_count = result.length;
-        statistics.total_amounts = total;
-        statistics.avg_amount = avg;
-        res.send(statistics);
+    ])
+    .exec(function(err, result){
+        res.send(result)
     });
 });
 

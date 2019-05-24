@@ -76,11 +76,11 @@ class App extends Component {
       return (
         <div>
           <p>
-            <b>Deals count</b>: {this.state.stats.deals_count}
+            <b>Deals count</b>: {this.state.stats[0].deals_count}
             <span className="text-warning"> || </span>
-            <b>Total amount</b>: £{this.state.stats.total_amounts}
+            <b>Total amount</b>: £{this.state.stats[0].total_amounts}
             <span className="text-warning"> || </span>
-            <b>Average amount</b>: £{this.state.stats.avg_amount}
+            <b>Average amount</b>: £{(this.state.stats[0].avg_amount).toFixed(2)}
           </p>
         </div>
       );
